@@ -3,13 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>小恐龙躲避障碍物</title>
+    <title>躲避障碍物</title>
     <style>
       body,
       html {
         width: 100%;
         height: 100%;
         background-color: #f6f6f6;
+        position: relative;
+        top: 0;
+        left: 0;
       }
       body {
         margin: 0;
@@ -23,35 +26,84 @@
       }
       .box {
         width: 60%;
-        height: 50%;
+        height: 35%;
         border: 1px solid black;
         position: relative;
         left: 20%;
+        border: none;
+        border-bottom: 3px solid black;
       }
       .dino {
-        width: 20px;
-        height: 20px;
-        background-color: red;
+        width: 70px;
+        height: 70px;
+        /* background-color: red; */
         position: absolute;
-        left: 20px;
         bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         /* animation: jump 1s infinite; */
       }
       .dinojump {
-        animation: jump 0.3s infinite;
+        animation: jump 1s infinite;
       }
       .barrier {
-        width: 20px;
-        height: 20px;
-        background-color: green;
+        width: 0;
+        height: 0;
+        /* background-color: green; */
         position: absolute;
+        left: 100px;
         bottom: 0;
-        overflow: hidden;
+        /* overflow: hidden; */
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-bottom: 40px solid red;
       }
       .barriershow {
         animation: move 2s linear infinite;
       }
-
+      .top {
+        width: 25px;
+        height: 15px;
+        background-color: black;
+        align-self: center;
+      }
+      .middle {
+        width: 65px;
+        height: 35px;
+        display: flex;
+        flex-direction: row;
+        /* gap: 5px; */
+        align-items: center;
+        justify-content: space-between;
+      }
+      .middleBody {
+        width: 40px;
+        height: 35px;
+        background-color: rgb(202, 9, 9);
+      }
+      .bottom {
+        height: 15px;
+        /* background-color: black; */
+        align-self: center;
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+      }
+      .left,
+      .right {
+        background-color: black;
+        width: 13px;
+      }
+      .leftArm,
+      .rightArm {
+        width: 7px;
+        height: 20px;
+        background-color: rgb(82, 82, 16);
+      }
+      .leftArm {
+        transform: rotate(45deg);
+      }
       @keyframes move {
         0% {
           left: 100%;
@@ -67,33 +119,64 @@
         0% {
           bottom: 0;
         }
-        25% {
-          bottom: 10%;
-        }
+        /* 25% {
+          bottom: 35%;
+        } */
         50% {
-          bottom: 20%;
+          bottom: 60%;
         }
-        75% {
-          bottom: 10%;
-        }
+        /* 75% {
+          bottom: 35%;
+        } */
         100% {
           bottom: 0%;
         }
       }
-      #replayBtn {
-        display: none;
+      #replayBtn,
+      #jumpBtn {
+        display: block;
+      }
+      p {
+        text-align: center;
+      }
+      .btns {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        left: 40%;
+      }
+      button {
+        border: 3px solid black;
+        padding: 5px;
+        margin: 10px;
+        text-align: center;
       }
     </style>
   </head>
   <body>
     <h1>躲避障碍物</h1>
     <div class="box" id="box">
-      <div class="dino" id="dino"></div>
+      <div class="dino" id="dino">
+        <span class="top"></span>
+        <span class="middle">
+          <span class="leftArm"></span>
+          <span class="middleBody"></span>
+          <span class="rightArm"></span>
+        </span>
+        <span class="bottom">
+          <span class="left"></span>
+          <span class="right"></span>
+        </span>
+      </div>
       <div class="barrier" id="barrier"></div>
     </div>
     <p id="result"></p>
-    <button id="startBtn">开始</button>
-    <button id="replayBtn">重新开始？</button>
+    <div class="btns">
+      <button id="startBtn">开始</button>
+      <button id="jumpBtn">⬆</button>
+      <button id="replayBtn">重新开始？</button>
+    </div>
+
     <script src="index.js"></script>
   </body>
 </html>
