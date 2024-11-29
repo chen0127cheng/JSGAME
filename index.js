@@ -13,7 +13,7 @@ window.onload = function () {
     jumpBtn.style.display = "block";
     barrier.classList.add("barriershow");
     window.addEventListener("keydown", spaceJump);
-    jumpBtn.addEventListener("click", jumpMove);
+    jumpBtn.addEventListener("click", jumpMove); //每隔10ms执行一次检测碰撞
     collisionInterval = setInterval(deletecollision, 10);
   });
   function jumpMove() {
@@ -21,7 +21,7 @@ window.onload = function () {
     player.classList.add("dinojump");
     setTimeout(function () {
       player.classList.remove("dinojump");
-    }, 1000);
+    }, 500);
   }
   //当触发“keydown”时，执行函数event
   function spaceJump(event) {
@@ -30,16 +30,19 @@ window.onload = function () {
       jumpMove();
     }
   }
-  //每隔10ms执行一次检测碰撞
+
   function deletecollision() {
-    const distance =
+    const distanceLevel =
       player.getBoundingClientRect().left -
       barrier.getBoundingClientRect().left;
+    const distanceLong =
+      player.getBoundingClientRect().top - barrier.getBoundingClientRect().top;
     console.log("player " + player.getBoundingClientRect().left);
     console.log("barrier  " + barrier.getBoundingClientRect().left);
-    console.log("distance " + distance);
+    console.log("distanceLevel " + distanceLevel);
+    console.log("distanceLong " + distanceLong);
     //如果人和障碍物相交，则视为碰撞
-    if (Math.abs(distance) <= 100) {
+    if (Math.abs(distanceLevel) <= 50 && Math.abs(distanceLong) <= 50) {
       //提示结束
       result.innerHTML = "Game Over!!!";
       //停止检测碰撞
@@ -51,6 +54,7 @@ window.onload = function () {
       barrier.style.display = "none";
       //显示重新开始按钮
       replay.style.display = "block";
+      jumpBtn.style.display = "none";
       //重新开始游戏
       replay.addEventListener("click", function () {
         location.reload();
