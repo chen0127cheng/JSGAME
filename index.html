@@ -43,6 +43,7 @@
         flex-direction: column;
         justify-content: space-between;
         /* animation: jump 1s infinite; */
+        z-index: 1;
       }
       .dinojump {
         animation: jump 0.5s infinite;
@@ -133,7 +134,9 @@
         }
       }
       #replayBtn,
-      #jumpBtn {
+      #jumpBtn,
+      #forwardBtn,
+      #backwardBtn {
         display: none;
       }
       p {
@@ -151,10 +154,27 @@
         margin: 10px;
         text-align: center;
       }
+      #door {
+        width: 50px;
+        height: 70px;
+        border: 2mm ridge rgb(215, 108, 32);
+        border-bottom: none;
+        background: linear-gradient(
+          to bottom,
+          rgb(246, 243, 78),
+          rgb(215, 108, 32)
+        );
+        position: absolute;
+        bottom: 0;
+        left: 90%;
+      }
     </style>
   </head>
   <body>
     <h1>躲避障碍物</h1>
+    <p>
+      游戏规则：您可以通过按钮实现跳跃前进以及后退，或者空格键实现跳跃。出口在门后，进入出口视为通关
+    </p>
     <div class="box" id="box">
       <div class="dino" id="dino">
         <span class="top"></span>
@@ -169,11 +189,15 @@
         </span>
       </div>
       <div class="barrier" id="barrier"></div>
+      <span id="door"></span>
     </div>
     <p id="result"></p>
     <div class="btns">
       <button id="startBtn">开始</button>
       <button id="jumpBtn">⬆</button>
+      <button id="backwardBtn">⬅</button>
+      <button id="forwardBtn">➡</button>
+
       <button id="replayBtn">重新开始？</button>
     </div>
 
